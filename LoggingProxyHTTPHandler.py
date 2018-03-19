@@ -83,24 +83,11 @@ class LoggingProxyHTTPHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         pass
 
     def log_request(self, *args):
-        print "*** REQUEST ***"
-        print self.command + ' ' + self.path
-        for (k, v) in rewrite_headers(self.headers).items():
-            print "{0} = {1}".format(k, v)
-        print
+        print "[Request] {} {}".format(self.command, self.path)
+
         if self.command in ['POST', 'PUT']:
             print self.data
-        print "*** END REQUEST ***"
+            print ''
 
     def log_response(self, response):
-        print "*** RESPONSE ***"
-        if response.status_code in self.responses:
-            shortmessage, longmessage = self.responses[response.status_code]
-        else:
-            shortmessage = longmessage = "Not a code known by requests module!"
-        print "{0} {1}".format(response.status_code, shortmessage)
-        for (k, v) in rewrite_headers(response.headers).items():
-            print "{0} = {1}".format(k, v)
-        print
-        print response.content
-        print "*** END RESPONSE ***"
+        pass
